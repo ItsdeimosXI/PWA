@@ -19,11 +19,10 @@ class FormValidator extends Model
         return [
 
             ['nombre', 'required', 'message' => 'El nombre es requerido'],
-            ['nombre', 'match', 'pattern' => "/^.{3,50)$/", 'message' => 'Debe ser de 3 a 50 caracteres'],
+            ['nombre', 'match', 'pattern' => "/^.[3,50]$/", 'message' => 'Debe ser de 3 a 50 caracteres'],
             ['nombre', 'match', 'pattern' => "/^[0-9a-z]+$/i", 'message' => 'Solo letras y numeros'],
             ['email', 'required', 'message' => "El email es requerido"],
-            ['email', 'email', 'message' => 'Email no válido']
-
+            ['email', 'email', 'message' => 'Email no válido'],
         ];
     }
 

@@ -16,12 +16,8 @@ $form = ActiveForm::begin([
     "id" => "formulario",
     "enableClientValidation" => true,
     "enableAjaxValidation" => false
-
 ]);
-
 ?>
-
-
 <div class="form-group">
 
     <?= $form->field($model, "nombre")->input("text") ?>

@@ -164,6 +164,6 @@ class SiteController extends Controller
                 $model->getErrors();
             }
         }
-        return $this->render('formvalidator', ['model' => $model, 'mensaje' => $mensaje]);
+        return $this->render('Formvalidator', ['model' => $model, 'mensaje' => $mensaje]);
     }
 }
