@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  postgres:
+      image: postgres:14-alpine
+      environment:
+          POSTGRES_PASSWORD: ${DATABASE_PASS}
+          POSTGRES_USER: ${DATABASE_USER}
+          POSTGRES_DB: ${DATABASE_NAME}
+      volumes:
+          - ./data/postgres:/var/lib/postgresql/data:delegated
+      ports:
+          - '5432:5432'
+
+  backend:
+    image: yiisoftware/yii2-php:7.1-apache
+    environment:
+          PASSWORD: ${DATABASE_PASS}
+          USER: ${DATABASE_USER}
+          DB: ${DATABASE_NAME}
+    volumes:
+      - ./backend/composer/cache:/root/.composer/cache:delegated
+      - ./backend/basic:/app:delegated
+      
+    ports:
+      - '8000:80'
+  
