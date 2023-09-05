@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 <title>Formulario V2</title>
 <h1> Formulario Validado </h1>
 
-<h3><?= $mensaje ?></h3>
+<p> <?= $mensaje ?></p>
 
 <?php
 
