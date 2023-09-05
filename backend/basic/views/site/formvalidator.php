@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 
 use yii\widgets\ActiveForm;
@@ -18,6 +19,11 @@ $form = ActiveForm::begin([
     "enableAjaxValidation" => false
 ]);
 ?>
+<div class="form-group">
+
+    <?= $form->field($model, "id")->input("text") ?>
+
+</div>
 <div class="form-group">
 
     <?= $form->field($model, "nombre")->input("text") ?>

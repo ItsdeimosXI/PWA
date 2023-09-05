@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'pgsql:host='.$_ENV['DDBB_HOST'].';dbname='.$_ENV['DDBB_NAME'],
-    'username' => 'root',
-    'password' => $_ENV['DDBB_PASS'] ,
+    'dsn' => 'pgsql:host='.$_ENV['POSTGRES_HOST'].';dbname='.$_ENV['POSTGRES_DB'],
+    'username' => $_ENV['POSTGRES_USER'],
+    'password' => $_ENV['POSTGRES_PASSWORD'],
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

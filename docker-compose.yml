@@ -15,9 +15,10 @@ services:
   backend:
     image: yiisoftware/yii2-php:7.1-apache
     environment:
-          DDBB_PASS: ${DATABASE_PASS}
-          DDBB_NAME: ${DATABASE_USER}
-          DDBB_HOST: ${DATABASE_NAME}
+          POSTGRES_PASSWORD: ${DATABASE_PASS}
+          POSTGRES_USER: ${DATABASE_USER}
+          POSTGRES_DB: ${DATABASE_NAME}
+          POSTGRES_HOST: ${DATABASE_HOST}
     volumes:
       - ./backend/composer/cache:/root/.composer/cache:delegated
       - ./backend/basic:/app:delegated

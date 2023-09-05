@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\FormValidator;
+use app\models\Usuario;
 
 class SiteController extends Controller
 {
@@ -159,7 +160,16 @@ class SiteController extends Controller
 
             if ($model->validate()) {
                 //consultas, calculos, etc, Guardado
-                $mensaje = 'Los datos fueron cargados y validados';
+                $user = new Usuario;
+                $user->nombre = $model->nombre;
+                $user->email = $model->email;
+                if ($user->insert()) {
+                    $mensaje = 'Los datos fueron cargados y validados';
+                    $model->nombre = null;
+                    $model->email = null;
+                } else {
+                    $mensaje = 'Ha ocurrido un error al cargar los datos';
+                }
             } else {
                 $model->getErrors();
             }
