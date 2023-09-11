@@ -10,7 +10,9 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\FormValidator;
+use app\models\Query;
 use app\models\Usuario;
+use yii\helpers\Html;
 
 class SiteController extends Controller
 {
@@ -175,5 +177,34 @@ class SiteController extends Controller
             }
         }
         return $this->render('Formvalidator', ['model' => $model, 'mensaje' => $mensaje]);
+    }
+    public function actionUsuario($mensaje = null)
+    {
+        $model = new Query();
+        if ($model->load(Yii::$app->request->get())) {
+            if ($model->validate()) {
+                $search = Html::encode($model->query);
+                $data = Usuario::find()
+                ->where(['like', '%id%', $search])
+                ->orwhere(['like', '%nombre%', $search])
+                ->orwhere(['like', '%correo%', $search])
+                ->all();
+               }
+             else {
+                $model->getErrors();
+                }
+            }
+        else {
+            $data = Usuario::find()->all();
+            }
+           
+            return $this->render('Usuarios', ["mensaje" => $mensaje, 'data' => $data, 'model' => $model]);
+        }
+    
+    public function actionDelusuario($id)
+    {
+        $user = Usuario::findOne($id);
+        $user->delete();
+        return $this->redirect(['site/usuario']);
     }
 }

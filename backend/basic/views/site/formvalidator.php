@@ -1,10 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 ?>
+<a href="<?= Url::toRoute("site/usuario")?>" class="btn btn-success">Listar usuarios</a>
 <title>Formulario V2</title>
 <h1> Formulario Validado </h1>
 
