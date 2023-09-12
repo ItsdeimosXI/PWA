@@ -5,11 +5,9 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 ?>
-<a href="<?= Url::toRoute("site/usuario")?>" class="btn btn-success">Listar usuarios</a>
+
 <title>Formulario V2</title>
 <h1> Formulario Validado </h1>
-
-<p> <?= $mensaje ?></p>
 
 <?php
 
@@ -36,7 +34,7 @@ $form = ActiveForm::begin([
 
 </div>
 <?= html::submitInput("Enviar", ["class" => "btn btn-primary"]) ?>
-
+<a href="<?= Url::toRoute("site/usuario")?>" class="btn btn-success">Listar usuarios</a>
 
 <?php
 $form->end();

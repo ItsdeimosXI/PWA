@@ -1,14 +1,16 @@
 <?php
 
 use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\LinkPager as Bootstrap4LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
+
 ?>
 <div class="row">
 <h3>Lista de la tabla usuarios : </h3>
 <a href="<?= Url::toRoute("site/formvalidator") ?>" class="btn btn-primary">Nuevo</a>
 </div>
-<h3><?= $mensaje ?></h3>
 
 <?php
 $form = ActiveForm::begin([
@@ -51,3 +53,9 @@ $form->end();
         </tr>
     <?php endforeach ?>
 </table>
+<div class = "pagination justify-content-center">
+<?= Bootstrap4LinkPager::widget([
+    'pagination' =>$pages,
+])?>
+</div>
+

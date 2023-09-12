@@ -12,6 +12,7 @@ use app\models\ContactForm;
 use app\models\FormValidator;
 use app\models\Query;
 use app\models\Usuario;
+use yii\data\Pagination;
 use yii\helpers\Html;
 
 class SiteController extends Controller
@@ -184,23 +185,34 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->get())) {
             if ($model->validate()) {
                 $search = Html::encode($model->query);
-                $data = Usuario::find()
-                ->where(['like', '%id%', $search])
-                ->orwhere(['like', '%nombre%', $search])
-                ->orwhere(['like', '%correo%', $search])
-                ->all();
-               }
-             else {
-                $model->getErrors();
+                if (is_numeric($search)) {
+                    $query = Usuario::find()
+                        ->andWhere(['id' => $search]);
+                } else {
+                    $query = Usuario::find()
+                        ->orwhere(['like', 'nombre',  $search])
+                        ->orwhere(['like', 'email', $search]);
                 }
+            } else {
+                $model->getErrors();
             }
-        else {
-            $data = Usuario::find()->all();
-            }
-           
-            return $this->render('Usuarios', ["mensaje" => $mensaje, 'data' => $data, 'model' => $model]);
+        } else {
+            $query = Usuario::find();
         }
-    
+
+        $countQuery = clone $query;
+
+        $pages = new Pagination([
+            'totalCount' => $countQuery->count(),
+            'pageSize' => 2
+        ]);
+        $data = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('Usuarios', ['data' => $data, 'model' => $model, 'pages' => $pages]);
+    }
+
     public function actionDelusuario($id)
     {
         $user = Usuario::findOne($id);
