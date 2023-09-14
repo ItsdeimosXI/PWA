@@ -13,7 +13,7 @@ class Query extends Model
     {
 
         return [
-            ['query', 'match', 'pattern' => "/^[0-9a-z]+$/i", 'message' => 'Solo letras y numeros'],
+            ['query', 'match', 'pattern' => "/^[0-9a-z@]+$/i", 'message' => 'Solo letras y numeros'],
         ];
         }
     public function attributeLabels()

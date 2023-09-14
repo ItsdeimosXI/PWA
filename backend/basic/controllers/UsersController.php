@@ -70,8 +70,24 @@ class UsersController extends Controller
         $model = new Users();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                if ($model->validate()){
+                    $model->username=$_POST['Users']['username'];
+                    $model->nombre=$_POST['Users']['nombre'];
+                    $model->email=$_POST['Users']['email'];
+                    $model->password=password_hash($_POST['Users']['password'], PASSWORD_BCRYPT);
+                    $model->authkey=md5(random_bytes(5));
+                    $model->accestoken=password_hash(random_bytes(5),PASSWORD_DEFAULT);
+                    if($model->save()){
+                        return $this->redirect(['view', 'id' => $model->id]);   
+
+                    } else {
+                        $model->getErrors();
+                    }
+                } else { 
+                    $model->getErrors();
+                }
+                
             }
         } else {
             $model->loadDefaultValues();
